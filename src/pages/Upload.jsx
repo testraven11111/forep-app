@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import axios from 'axios';
 
-const Upload = ({ handleUpload }) => {
+const Upload = () => {
     const [value, setValue] = useState('');
     const [namaMakanan, setNamaMakanan] = useState('');
     const [provinsi, setProvinsi] = useState('');
 
     const handleSubmit = () => {
         const payload = {
-            id: generateId(), // Menghasilkan ID secara otomatis
+            id: generateId(),
             provinsi: provinsi,
             daerah: '',
             nama_resep: namaMakanan,
             bahan: value,
             cara_membuat: '',
         };
-        handleUpload(payload);
+        axios
+            .post('http://localhost:8000/api/resep', payload)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Terjadi kesalahan saat mengupload resep', error);
+            });
     };
 
     const generateId = () => {
-        // Menghasilkan ID secara otomatis
-        return Math.random().toString(36).substr(2, 9);
+        return Math.random().toString(36).slice(2, 11);
     };
 
     return (
