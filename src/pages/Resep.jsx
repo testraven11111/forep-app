@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import resepData from '../resep.json';
+import resepData from '../reseplist';
 
 const Resep = () => {
     const [resep, setResep] = useState([]);
@@ -15,10 +15,14 @@ const Resep = () => {
             {resep.map((item) => (
                 <div key={item.id}>
                     <h2>{item.nama_resep}</h2>
-                    <p>Provinsi: {item.provinsi}</p>
-                    <p>Daerah: {item.daerah}</p>
-                    <p>Bahan: {item.bahan}</p>
-                    <p>Cara Membuat: {item.cara_membuat}</p>
+                    <p>Provinsi: {item.daerah}</p>
+                    <p>Bahan: {item.bahan.join(', ')}</p>
+                    <p>Cara Membuat:</p>
+                    <ol>
+                        {item.cara_membuat.map((langkah, index) => (
+                            <li key={index}>{langkah}</li>
+                        ))}
+                    </ol>
                     <Link to={`/resep/${item.id}`}>Lihat Detail</Link>
                 </div>
             ))}
