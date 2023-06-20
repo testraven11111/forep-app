@@ -3,24 +3,29 @@ const fs = require('fs');
 const path = require('path');
 
 const server = Hapi.server({
-    port: 8000,
-    host: 'localhost',
+    port: process.env.PORT || 8000,
+    host: '0.0.0.0',
 });
 
-const init = async () => {
-    server.route({
-        method: 'GET',
-        path: '/api/resep',
-        handler: (request, h) => {
-            const resepPath = path.join(__dirname, './src/resep.json');
-            const resepData = fs.readFileSync(resepPath, 'utf8');
-            const resepJSON = JSON.parse(resepData);
-            return resepJSON;
-        },
-    });
+server.route({
+    method: 'GET',
+    path: '/api/resep',
+    handler: (request, h) => {
+        const resepPath = path.join(__dirname, './resep.json');
+        const resepData = fs.readFileSync(resepPath, 'utf8');
+        const resepJSON = JSON.parse(resepData);
+        return resepJSON;
+    },
+});
 
-    await server.start();
-    console.log(`Server berjalan pada ${server.info.uri}`);
+const startServer = async () => {
+    try {
+        await server.start();
+        console.log(`Server berjalan pada ${server.info.uri}`);
+    } catch (error) {
+        console.error('Terjadi kesalahan saat memulai server Hapi:', error);
+        process.exit(1);
+    }
 };
 
-init();
+startServer();
