@@ -18,7 +18,7 @@ const Upload = () => {
             cara_membuat: '',
         };
         axios
-            .post('https://forep-app.netlify.app.netlify.app/api/resep', payload)
+            .post('http://localhost:8000/api/resep', payload)
             .then(response => {
                 console.log(response.data);
             })
