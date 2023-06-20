@@ -10,7 +10,7 @@ const Resep = () => {
 
     const fetchResep = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/resep');
+            const response = await fetch('https://forep-app.netlify.app.netlify.app/api/resep');
             if (response.ok) {
                 const resepData = await response.json();
                 setResep(resepData);
@@ -24,7 +24,7 @@ const Resep = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/resep/${id}`, {
+            const response = await fetch(`https://forep-app.netlify.app.netlify.app/api/resep${id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
