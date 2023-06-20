@@ -5,5 +5,5 @@
   CI = "false"
 [[redirects]]
   from = "/api/*"
-  to = "http://localhost:8000/:splat"
+  to = "https://forep-app.netlify.app.netlify.app/:splat"
   status = 200
