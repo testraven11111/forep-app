@@ -47,4 +47,6 @@ app.delete('/api/resep/:id', (req, res) => {
     }
 });
 
-module.exports = app;
+app.listen(8000, () => {
+    console.log('Server berjalan pada port 8000');
+});
