@@ -2,36 +2,26 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const Upload = () => {
+const Upload = ({ handleUpload }) => {
     const [value, setValue] = useState('');
     const [namaMakanan, setNamaMakanan] = useState('');
     const [provinsi, setProvinsi] = useState('');
 
-    const handleUpload = async () => {
+    const handleSubmit = () => {
         const payload = {
+            id: generateId(), // Menghasilkan ID secara otomatis
             provinsi: provinsi,
             daerah: '',
             nama_resep: namaMakanan,
             bahan: value,
             cara_membuat: '',
         };
+        handleUpload(payload);
+    };
 
-        try {
-            const response = await fetch('/api/resep', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
-            if (response.ok) {
-                console.log('Resep berhasil diupload');
-            } else {
-                console.log('Terjadi kesalahan saat mengupload resep');
-            }
-        } catch (error) {
-            console.log('Terjadi kesalahan saat mengupload resep', error);
-        }
+    const generateId = () => {
+        // Menghasilkan ID secara otomatis
+        return Math.random().toString(36).substr(2, 9);
     };
 
     return (
@@ -57,7 +47,7 @@ const Upload = () => {
                         Upload Image
                     </label>
                     <div className="buttons">
-                        <button onClick={handleUpload}>Publish</button>
+                        <button onClick={handleSubmit}>Publish</button>
                     </div>
                 </div>
                 <div className="item">
@@ -80,13 +70,13 @@ const Upload = () => {
                         <option value="Kalimantan Barat">Kalimantan Barat</option>
                         <option value="Kalimantan Timur">Kalimantan Timur</option>
                         <option value="Kalimantan Selatan">Kalimantan Selatan</option>
-                        <option value="Kalimantan Tengah">Kalimantan Tengaah</option>
+                        <option value="Kalimantan Tengah">Kalimantan Tengah</option>
                         <option value="Kalimantan Utara">Kalimantan Utara</option>
                         <option value="Banten">Banten</option>
                         <option value="DKI Jakarta">DKI Jakarta</option>
                         <option value="Jawa Barat">Jawa Barat</option>
-                        <option value="Jawa Tengah">Jawa tengah</option>
-                        <option value="Yokyakarta">Yogyakarta</option>
+                        <option value="Jawa Tengah">Jawa Tengah</option>
+                        <option value="DI Yogyakarta">DI Yogyakarta</option>
                         <option value="Jawa Timur">Jawa Timur</option>
                         <option value="Bali">Bali</option>
                         <option value="Nusa Tenggara Timur">Nusa Tenggara Timur</option>
