@@ -3,3 +3,7 @@
   publish = "build"
 [build.environment]
   CI = "false"
+[[redirects]]
+  from = "/api/*"
+  to = "http://localhost:8000/:splat"
+  status = 200
